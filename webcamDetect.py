@@ -6,11 +6,11 @@ from tensorflow.keras.models import Sequential
 IMG_BORDER = 40
 IMG_W = 640  # webcam 畫面寬度
 IMG_H = 480  # webcam 畫面高度
-LABEL_SIZE = 0.7
+LABEL_SIZE = 0.5
 CONTOUR_COLOR = (0, 255, 255)  # 輪廓框的顏色 (BGR)
 LABEL_COLOR = (255, 255, 0)  # 文字標籤的顏色 (BGR)
 
-model = tf.keras.models.load_model('MnistCNN_model.h5')
+model = tf.keras.models.load_model('YGCNN_model.h5')
 MORPH_KERNEL = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
 
 
@@ -27,7 +27,7 @@ while(True):
     success, frame = cap.read()
 
     frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    _, frame_binary = cv2.threshold(frame_gray, 80, 255, cv2.THRESH_BINARY_INV)
+    _, frame_binary = cv2.threshold(frame_gray, 127, 255, cv2.THRESH_BINARY_INV)
     img_binary = cv2.morphologyEx(frame_binary, cv2.MORPH_CLOSE, MORPH_KERNEL)
     contours, _ = cv2.findContours(img_binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
