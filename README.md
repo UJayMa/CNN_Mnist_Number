@@ -5,4 +5,5 @@
 ## 實作
 由於我訓練的模型在辨識上還是不夠精確，所以我採用kaggle上YASSINE GHOUZAM的CNN模型[YASSINE GHOUZAM](https://www.kaggle.com/code/yassineghouzam/introduction-to-cnn-keras-0-997-top-6)
 這個模型使用許多工具來讓訓練效果提升，例如:優化器、資料擴充；這篇文章裡面也有解釋為何要這麼做，是個一篇優質好聞。
-在影像物件偵測上我採用了opencv裡面的findcontour套件，此套件能夠得到圖形輪廓，也可以得到將圖形框在長方形內部的中心點與長寬，再將圖片送進模型預測，得到我們所想要的效果
+在影像物件偵測上我採用了opencv裡面的findcontour套件，此套件能夠得到圖形輪廓，也可以得到將圖形框在長方形內部的中心點與長寬，再將圖片送進模型預測，得到我們所想要的效果  
+![image](https://github.com/UJayMa/CNN_Mnist_Number/blob/main/detect_result_01.jpg)
