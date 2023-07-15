@@ -7,6 +7,7 @@ IMG_BORDER = 40
 IMG_W = 640  # webcam 畫面寬度
 IMG_H = 480  # webcam 畫面高度
 LABEL_SIZE = 0.5
+DETECT_THRESHOLD = np.float32(0.8)  # 預測閥值
 CONTOUR_COLOR = (0, 255, 255)  # 輪廓框的顏色 (BGR)
 LABEL_COLOR = (255, 255, 0)  # 文字標籤的顏色 (BGR)
 
@@ -18,7 +19,6 @@ MORPH_KERNEL = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, IMG_W)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, IMG_H)
-cap.set(cv2.CAP_PROP_FPS, 10)
 
 # while cap.isOpened():
 while(True):
@@ -53,11 +53,17 @@ while(True):
         img = img_digit.astype('float32')
 
         img /= 255
+        
+        predict_prob = model.predict(img)
+        label = np.argmax(predict_prob)
+        max_prob = predict_prob[0][label]
+        
+        # 小於預測閥值，不顯示
+        if max_prob < DETECT_THRESHOLD:
+            continue
 
-        label = np.argmax(model.predict(img))
-
-        cv2.rectangle(frame, (x, y), (x + w, y + h), CONTOUR_COLOR, 2)
-        cv2.putText(frame, str(label), (x + w // 5, y - h // 5), cv2.FONT_HERSHEY_COMPLEX, LABEL_SIZE, LABEL_COLOR, 2)
+        cv2.rectangle(frame, (x, y), (x + w, y + h), CONTOUR_COLOR, 1)
+        cv2.putText(frame, str(label), (x + w // 5, y - h // 5), cv2.FONT_HERSHEY_COMPLEX, LABEL_SIZE, LABEL_COLOR, 1)
 
 
     cv2.imshow('ImageWindow',frame)
