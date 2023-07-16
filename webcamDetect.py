@@ -11,7 +11,7 @@ DETECT_THRESHOLD = np.float32(0.8)  # 預測閥值
 CONTOUR_COLOR = (0, 255, 255)  # 輪廓框的顏色 (BGR)
 LABEL_COLOR = (255, 255, 0)  # 文字標籤的顏色 (BGR)
 
-model = tf.keras.models.load_model('YGCNN_model.h5')
+model = tf.keras.models.load_model('CNN_Digit_Recognizer.h5')
 MORPH_KERNEL = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
 
 
